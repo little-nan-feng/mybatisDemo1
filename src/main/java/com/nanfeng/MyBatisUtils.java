@@ -1,4 +1,3 @@
-/*
 package com.nanfeng;
 
 import org.apache.ibatis.io.Resources;
@@ -26,4 +25,3 @@ public class MyBatisUtils {
         return sqlSessionFactory.openSession();
     }
 }
-*/

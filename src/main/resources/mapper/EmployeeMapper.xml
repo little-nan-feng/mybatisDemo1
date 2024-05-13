@@ -8,6 +8,10 @@
         select * from employee where id =#{id}
     </select>
 
+    <select id="findAll" parameterType="Integer" resultType="com.nanfeng.pojo.Employee">
+        select * from employee
+    </select>
+
     <insert id="addEmployee" parameterType="com.nanfeng.pojo.Employee">
         insert into employee(id,name,age,position) values(#{id},#{name},#{age},#{position})
     </insert>
