@@ -20,8 +20,9 @@ public class CustomerTest {
 
     public static final Logger logger=Logger.getLogger(CustomerTest.class);
     SqlSession sqlSession=null;
-    @Before
-    public void setUp(){
+
+    @Before//在其他方法执行前执行
+    public void setUp(){//加载sqlSession
 
         Reader reader= null;
         try {

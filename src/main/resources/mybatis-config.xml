@@ -18,7 +18,7 @@
     </environments>
 
     <mappers>
-        <mapper resource="mapper/EmployeeMapper.xml"></mapper>
-        <mapper resource="mapper/CustomerMapper.xml"></mapper>
+        <mapper resource="mapper/EmployeeMapper.xml"/>
+        <mapper resource="mapper/CustomerMapper.xml"/>
     </mappers>
 </configuration>
