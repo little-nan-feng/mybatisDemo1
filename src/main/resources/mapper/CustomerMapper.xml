@@ -32,4 +32,64 @@
             </otherwise>
         </choose>
     </select>
+
+    <select id="queryCustomerByAge" parameterType="string" resultType="com.nanfeng.pojo.Customer">
+        select * from t_customer
+        <where>
+            <choose>
+                <when test="type=='儿童'">
+                    and age&lt;14
+                </when>
+                <when test="type=='少年'">
+                    and age&gt;14 and age&lt;=18
+                </when>
+                <when test="type=='青年'">
+                    and age&gt;18 and age&lt;=35
+                </when>
+                <when test="type=='中年'">
+                    and age&gt;35 and age&lt;=60
+                </when>
+                <otherwise>
+                    and age&gt;60
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <select id="queryCustomerById1" resultType="com.nanfeng.pojo.Customer">
+        select * from t_customer where id in
+        <foreach collection="array" open="(" close=")" separator="," item="i">
+            #{i}
+        </foreach>
+    </select>
+
+    <select id="queryCustomerById2" parameterType="arraylist" resultType="com.nanfeng.pojo.Customer">
+        select * from t_customer where id in
+        <foreach collection="list" open="(" close=")" separator="," item="i">
+            #{i}
+        </foreach>
+    </select>
+
+    <select id="queryCustomerById3" parameterType="map" resultType="com.nanfeng.pojo.Customer">
+        select * from t_customer where id in
+        <foreach collection="arr" open="(" close=")" separator="," item="i">
+            #{i}
+        </foreach>
+    </select>
+
+    <update id="updateCustomer" parameterType="com.nanfeng.pojo.Customer">
+        update t_customer
+        <trim prefix="set" suffixOverrides=",">
+            <if test="username!=null and username!=''">
+                username=#{username},
+            </if>
+            <if test="phone!=null and phone!=''">
+                phone=#{phone},
+            </if>
+            <if test="jobs!=null and jobs!=''">
+                jobs=#{jobs},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
 </mapper>

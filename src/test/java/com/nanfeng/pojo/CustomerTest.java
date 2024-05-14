@@ -12,8 +12,10 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 public class CustomerTest {
@@ -38,11 +40,35 @@ public class CustomerTest {
     public void test(){
         CustomerMapper customerMapper=sqlSession.getMapper(CustomerMapper.class);
 
+        //查询
         Customer customer=new Customer();
-        customer.setUsername("jack");
-        List<Customer> list= customerMapper.queryCustomer2(customer);
-        //Logger.info("结果："+list);
-        System.out.println(list);
+
+        //有条件查询
+        /*customer.setUsername("jack");
+        List<Customer> list= customerMapper.queryCustomerByAge("青年");//根据类型
+        System.out.println(list);*/
+
+        //使用数组，list，map来进行符合条件的查询
+        int[] arr={1,2,3};//数组
+        List<Integer>list=new ArrayList<>();//list
+        list.add(1);
+        list.add(2);
+        list.add(3);
+
+        Map<String,List<Integer>> map=new HashMap<String,List<Integer>>();//map
+        map.put("arr",list);
+
+        List<Customer> customers=customerMapper.queryCustomerById3(map);
+        System.out.println(customers);
+
+
+/*
+        //更新
+        customer.setId(2);
+        customer.setUsername("afu");
+        customer.setJobs("保洁");
+        customerMapper.updateCustomer(customer);
+*/
 
         sqlSession.close();
     }
