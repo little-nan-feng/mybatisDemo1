@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="dao.ClassMapper">
+
+    <!--嵌套查询-->
+    <select id="queryclass" parameterType="integer" resultMap="queryClass">
+        select * from class_c where class_id=#{class_id}
+    </select>
+    <resultMap id="queryClass" type="com.nanfeng.pojo.Class">
+        <id property="class_id" column="class_id" />
+        <result property="position" column="position"/>
+        <collection property="student_cList" javaType="list"
+                    column="class_id" ofType="com.nanfeng.pojo.Student_c"
+                    select="dao.Student_cMapper.queryStudent3"/>
+    </resultMap>
+</mapper>

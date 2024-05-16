@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.Student_cMapper">
+
+    <!--嵌套查询-->
+    <select id="queryStudent" parameterType="integer" resultMap="studentType">
+        select * from student_c where id=#{id}
+    </select>
+    <resultMap id="studentType" type="com.nanfeng.pojo.Student_c">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="class_id" column="class_id"/>
+        <association property="card" javaType="com.nanfeng.pojo.Card" column="card" select="dao.CardMapper.querycard"/>
+    </resultMap>
+
+    <!--根据class_id查询学生，在通过学生id查询card-->
+    <select id="queryStudent3" parameterType="integer" resultMap="studentType3">
+        select * from student_c where class_id=#{class_id}
+    </select>
+    <resultMap id="studentType3" type="com.nanfeng.pojo.Student_c">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="class_id" column="class_id"/>
+        <association property="card" javaType="com.nanfeng.pojo.Card" column="card" select="dao.CardMapper.querycard"/>
+    </resultMap>
+
+    <!--嵌套结果-->
+    <select id="queryStudent2" parameterType="integer" resultMap="studentType2">
+        select s.name sname,s.gender sgender,class_id,c.*
+        from student_c s left join card c on s.card=c.card_id
+        where s.id=#{id}
+    </select>
+    <resultMap id="studentType2" type="com.nanfeng.pojo.Student_c">
+        <id property="id" column="id"/>
+        <result property="name" column="sname"/>
+        <result property="gender" column="sgender"/>
+        <result property="class_id" column="class_id"/>
+        <association property="card" javaType="com.nanfeng.pojo.Card">
+            <result property="card_id" column="card_id"/>
+            <result property="name" column="name"/>
+            <result property="gender" column="gender"/>
+            <result property="province" column="province"/>
+            <result property="city" column="city"/>
+            <result property="address" column="address"/>
+        </association>
+    </resultMap>
+
+</mapper>
