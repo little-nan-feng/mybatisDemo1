@@ -17,4 +17,21 @@
                     column="class_id" ofType="com.nanfeng.pojo.Student_c"
                     select="dao.Student_cMapper.queryStudent3"/>
     </resultMap>
+
+    <!--嵌套结果集-->
+    <select id="queryclass2" resultMap="queryClass2" parameterType="integer">
+        select c.class_id cid,c.position,s.id,s.name,s.gender,s.class_id  /* s.* */
+        from class_c c left join student_c s on c.class_id=s.class_id
+        where c.class_id=#{class_id}
+    </select>
+    <resultMap id="queryClass2" type="com.nanfeng.pojo.Class">
+        <id property="class_id" column="cid"/>
+        <result property="position" column="position"/>
+        <collection property="student_cList" javaType="list" ofType="com.nanfeng.pojo.Student_c">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="gender" column="gender"/>
+            <!--<result property="card" column="card"/>-->
+        </collection>
+    </resultMap>
 </mapper>

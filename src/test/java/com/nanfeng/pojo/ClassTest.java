@@ -24,7 +24,11 @@ public class ClassTest {
     public void test(){
 
         //嵌套查询测试
-        Class c=classMapper.queryclass(1010);
+        /*Class c=classMapper.queryclass(1010);
+        System.out.println(c);*/
+
+        //嵌套结果测试
+        Class c=classMapper.queryclass2(1010);
         System.out.println(c);
 
     }

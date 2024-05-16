@@ -49,5 +49,4 @@
             <result property="address" column="address"/>
         </association>
     </resultMap>
-
 </mapper>
